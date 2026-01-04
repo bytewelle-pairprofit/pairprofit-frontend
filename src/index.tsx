@@ -122,10 +122,13 @@ render(
                         />
                         <Route path="/job-requests" />
                         <Route path="/jobs" />
-                        <Route path="/contacts" />
+                        <Route path="/contacts">
+                            <Route path="/" component={ContactList} />
+                            <Route path="/call" component={InAppCallPage} />
+                        </Route>
                         <Route path="/earnings" />
                         <Route path="/subscription" />
-                        <Route path="/inbox" />
+                        <Route path="/inbox" component={ClientChatPage} />
                         <Route path="/email" component={MailApp} />
                         <Route
                             path="/email/compose"
@@ -137,9 +140,12 @@ render(
                         />
                         <Route path="/calendar" component={Calendar} />
                         <Route path="/kanban" component={KanbanBoard} />
-                        <Route path="/ai" />
+                        <Route path="/ai" component={MrFixitChatPage} />
                         <Route path="/help" />
-                        <Route path="/settings" />
+                        <Route
+                            path="/settings"
+                            component={ClientSettingsPage}
+                        />
                     </Route>
                     <Route
                         path="/listings"
@@ -153,7 +159,6 @@ render(
                     <Route path="/requests" component={ServiceListings} />
                     <Route path="/logger" component={LoggerPage} />
                     <Route path="/contact">
-                        <Route path="/email"></Route>
                         <Route path="/list" component={ContactList} />
                         <Route path="/call" component={InAppCallPage} />
                     </Route>

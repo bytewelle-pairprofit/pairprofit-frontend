@@ -609,25 +609,6 @@ export const JobDetailPage = (props: any) => {
 
     return (
         <div class="mx-auto p-4 md:p-8 font-['Geist'] bg-white min-h-screen">
-            {isSuccess() && (
-                <SuccessPage
-                    isOpen={isSuccess()}
-                    handleAction={() => setIsSuccess(false)}
-                    texts={{
-                        title: 'Success!',
-                        details: 'You have successfully applied to this job',
-                        action: 'Close',
-                    }}
-                />
-            )}
-
-            <JobHeaderSection onApply={() => setIsModalOpen(true)} />
-            <ApplyJobModal
-                isOpen={isModalOpen()}
-                onClose={() => setIsModalOpen(false)}
-                onSubmit={handleApply}
-                setIsSuccess={setIsSuccess}
-            />
             {/* 1. Header Navigation */}
             <button
                 onClick={props.onBack}
@@ -650,6 +631,25 @@ export const JobDetailPage = (props: any) => {
                 </svg>
                 <span class="font-medium text-lg">Back to jobs</span>
             </button>
+            {isSuccess() && (
+                <SuccessPage
+                    isOpen={isSuccess()}
+                    handleAction={() => setIsSuccess(false)}
+                    texts={{
+                        title: 'Success!',
+                        details: 'You have successfully applied to this job',
+                        action: 'Close',
+                    }}
+                />
+            )}
+
+            <JobHeaderSection onApply={() => setIsModalOpen(true)} />
+            <ApplyJobModal
+                isOpen={isModalOpen()}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={handleApply}
+                setIsSuccess={setIsSuccess}
+            />
             {/* <JobHeaderSection /> */}
             <ClientProfileSection />
             <div class="w-full flex flex-col md:flex-row justify-between items-start gap-6 font-['Geist'] pb-8">

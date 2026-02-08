@@ -1,8 +1,17 @@
-import { createSignal, createMemo, For, Show, onMount } from 'solid-js';
+import {
+    createSignal,
+    createMemo,
+    For,
+    Show,
+    onMount,
+    Switch,
+    Match,
+} from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { FilterDropdown } from './FilterDropdown';
 import L from 'leaflet';
 import { JobDetailPage } from './JobDetail';
+import { JobRequestsEmptyState } from './EmptyState';
 
 export const JobRequestsPage = () => {
     const [activeTab, setActiveTab] = createSignal('Best Matches');
@@ -176,6 +185,7 @@ export const JobRequestsPage = () => {
     window.addEventListener('mapJobAction', (e: any) => {
         console.log('Job ID clicked from map:', e.detail);
         // Add your logic here (e.g., navigate to job page)
+        setSelectedJob(e);
     });
 
     const initMap = () => {
@@ -223,8 +233,7 @@ export const JobRequestsPage = () => {
     };
 
     return (
-        <Show
-            when={selectedJob()}
+        <Switch
             fallback={
                 <div class="mx-auto p-4 md:p-8 flex flex-col min-h-screen font-['Geist'] bg-white">
                     {/* Header */}
@@ -523,10 +532,15 @@ export const JobRequestsPage = () => {
                 </div>
             }
         >
-            <JobDetailPage
-                job={selectedJob()}
-                onBack={() => setSelectedJob(null)}
-            />
-        </Show>
+            <Match when={filteredJobsCount().length === 0}>
+                <JobRequestsEmptyState />
+            </Match>
+            <Match when={filteredJobsCount().length !== 0 && selectedJob()}>
+                <JobDetailPage
+                    job={selectedJob()}
+                    onBack={() => setSelectedJob(null)}
+                />
+            </Match>
+        </Switch>
     );
 };

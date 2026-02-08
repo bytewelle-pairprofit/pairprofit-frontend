@@ -1,14 +1,17 @@
 import { Component, createEffect } from 'solid-js';
-import { LoginStore } from './types';
-import { useNavigate } from '@solidjs/router';
-
+// import { LoginStore } from './types';
 // This is the component for your success page
 export const SuccessPage: Component<{
-    loginStore: LoginStore;
-}> = () => {
+    // loginStore: LoginStore;
+    isOpen: boolean;
+    handleAction: () => void;
+    texts: {
+        title: string;
+        details: string;
+        action: string;
+    };
+}> = (props) => {
     let checkmarkRef: SVGPathElement; // Reference to the SVG path for animation
-    const navigate = useNavigate();
-
     // createEffect runs after initial render and when dependencies change.
     // We want to trigger the animation once when the component mounts.
     createEffect(() => {
@@ -28,10 +31,6 @@ export const SuccessPage: Component<{
             }, 100);
         }
     });
-
-    const handleGoHome = () => {
-        navigate('/');
-    };
 
     return (
         <div class="bg-light-bg flex justify-center items-center min-h-screen m-0 font-sans bg-[#FCFCFD]  dark:bg-gray-900">
@@ -64,19 +63,22 @@ export const SuccessPage: Component<{
 
                 {/* Title and Subtitle */}
                 <h1 class="text-2xl font-semibold text-gray-800 mb-2">
-                    You're all set!
+                    {/* You're all set! */}
+                    {props.texts.title}
                 </h1>
                 <p class="text-sm text-gray-600 mb-8">
-                    Start discovering, connecting, or getting hired now.
+                    {/* Start discovering, connecting, or getting hired now. */}
+                    {props.texts.details}
                 </p>
 
                 {/* Go to Home Button */}
                 <button
-                    onClick={handleGoHome}
+                    onClick={props.handleAction}
                     class="w-full py-3 bg-[#1376A1] text-white rounded-lg font-semibold
                            hover:bg-[#1376A1] cursor-pointer transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-200"
                 >
-                    Go to Home
+                    {/* Go to Home */}
+                    {props.texts.action}
                 </button>
             </div>
         </div>

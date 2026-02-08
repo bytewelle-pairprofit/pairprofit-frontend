@@ -44,6 +44,7 @@ import {
 import {
     ArtisanDashboardComponent,
     ProfessionalProfilePage,
+    JobRequestsPage,
 } from './apps/artisan/pages';
 import {
     LandingPage,
@@ -55,7 +56,7 @@ import {
 const root = document.getElementById('root');
 if (import.meta.env.DEV && !(root instanceof HTMLElement)) {
     throw new Error(
-        'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?'
+        'Root element not found. Did you forget to add it to your index.html? Or maybe the id attribute got misspelled?',
     );
 }
 
@@ -121,7 +122,7 @@ render(
                             component={ProfessionalProfilePage}
                         />
                         <Route path="/job-requests" />
-                        <Route path="/jobs" />
+                        <Route path="/jobs" component={JobRequestsPage} />
                         <Route path="/contacts">
                             <Route path="/" component={ContactList} />
                             <Route path="/call" component={InAppCallPage} />
@@ -175,5 +176,5 @@ render(
             </Router>
         </div>
     ),
-    root!
+    root!,
 );

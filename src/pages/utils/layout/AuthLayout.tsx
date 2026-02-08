@@ -1,5 +1,5 @@
 import { Component } from 'solid-js';
-import { LoadingOverlay, LogoutModal } from '../../../components';
+import { LoadingOverlay, LogoutModal, NavBar } from '../../../components';
 import { useNavigate } from '@solidjs/router';
 import { authService } from '../../../oauth/manager';
 import { SecureLocalStorage, LocalStorageKey } from '../../../lib/localstore';

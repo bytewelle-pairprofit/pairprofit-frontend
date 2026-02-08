@@ -17,7 +17,7 @@ import { ArtisansLocationNAvialability } from './artisan_locationNavail';
 import { ArtisansSkillNTitle } from './artisan_skillNtitle';
 import { ArtisansSelfDescription } from './artisan_selfDescription';
 import { ArtisansVerificationNTrust } from './artisan_verificationNtrust';
-import { useSearchParams } from '@solidjs/router';
+import { useSearchParams, useNavigate } from '@solidjs/router';
 
 interface ImageStepDetails {
     clientImage: string;
@@ -66,7 +66,7 @@ export const LoginPage: Component = () => {
     const loginStore = createLoginStore();
     // Memoized calculation of the current step's image config
     const currentImageConfig = createMemo(
-        () => imageConfig[loginStore.currentStep]
+        () => imageConfig[loginStore.currentStep],
     );
 
     // Memoized calculation of the image source
@@ -93,6 +93,11 @@ export const LoginPage: Component = () => {
             loginStore.setActiveProfile(AccountEnum.Client);
         }
     });
+
+    const handleSuccessAction = () => {
+        const navigate = useNavigate();
+        navigate('/');
+    };
 
     return (
         <div class={`grid ${gridLayoutClass()} m-0 p-0 w-full min-h-screen`}>
@@ -153,7 +158,17 @@ export const LoginPage: Component = () => {
                                 StepTransitions.SetupComplete
                             }
                         >
-                            <SuccessPage loginStore={loginStore} />
+                            {/* <SuccessPage loginStore={loginStore} /> */}
+                            <SuccessPage
+                                isOpen
+                                handleAction={handleSuccessAction}
+                                texts={{
+                                    title: "You're all set!",
+                                    details:
+                                        'Start discovering, connecting, or getting hired now.',
+                                    action: 'Go to Home',
+                                }}
+                            />
                         </Match>
                         <Match
                             when={
